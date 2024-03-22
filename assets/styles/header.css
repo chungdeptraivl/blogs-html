@@ -1,0 +1,184 @@
+.container {
+    max-width: 1068px;
+    margin: auto;
+    width: 100%;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+header.shadow {
+    background-color: var(--bg-color);
+    box-shadow: 0 1px 4px hsl(0 4% 14% / 10%);
+    transform: 0.8s;
+}
+
+header.shadow .logo {
+    color: var(--text-color);
+}
+
+header.shadow .header_menu .item:not(.active-filter) {
+    color: var(--text-color);
+}
+
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 8px;
+}
+
+.logo {
+    width: 20%;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--bg-color);
+}
+
+.logo span {
+    color: var(--second-color);
+}
+
+.header_menu {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header_menu .item {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bg-color);
+    cursor: pointer;
+}
+
+.header_menu .item:hover {
+    opacity: 0.75;
+    transition: 0.3s;
+}
+
+.active-filter {
+    background: var(--second-color);
+    color: var(--bg-color);
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+.btnform, .account {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btnform .btn_login, .btnform .btn_signin {
+    padding: 8px 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 4px;
+    background-color: var(--second-color);
+    border: none;
+    cursor: pointer;
+}
+
+.btnform .btn_login {
+    margin-right: 8px;
+}
+
+.btnform .btn_login a, .btnform .btn_signin a {
+    color: var(--bg-color);
+    font-size: 0.7rem;
+}
+
+.btnform .btn_login:hover, .btnform .btn_signin:hover {
+    opacity: 0.75;
+    transition: 0.3s;
+}
+
+.avt-account {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+
+.avt-account-1 {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+
+.avt-account:hover {
+    border: 2px solid var(--second-color);
+}
+
+.account {
+    position: relative;
+}
+
+.header_account-manage {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.email-account {
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+
+.account-manage {
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    padding: 16px 24px;
+    width: 280px;
+    display: none;
+    background-color: #99c4f3;
+    border-radius: 8px;
+    animation: showManage 0.3s ease-in-out;
+}
+
+.list {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.list > .item {
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+}
+
+.list > .item:hover {
+    color: var(--bg-color);
+}
+
+.account-manage.show {
+    display: block;
+}
+
+@keyframes showManage {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

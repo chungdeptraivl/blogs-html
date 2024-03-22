@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNC Blogs</title>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+    <link rel="stylesheet" href="assets/styles/header.css">
+    <link rel="stylesheet" href="./assets/styles/blog.css">
+    <link rel="stylesheet" href="./assets/styles/footer.css">
+</head>
+
+<body>
+    <!-- navigation -->
+    <header>
+        <div class="nav container">
+            <a href="/" class="logo">TNC <span>Blogs</span></a>
+            <ul class="header_menu">
+                <a href="/" class="item filter-item">Trang chủ</a>
+                <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
+                <a href="/hightBlogs.html" class="item filter-item">Đánh giá cao</a>
+                <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
+                <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
+            </ul>
+            <div class="btnform">
+                <button class="btn_login">
+                    <a href="/login-form.html">Đăng nhập</a>
+                </button>
+                <button class="btn_signin">
+                    <a href="signin-form.html">Đăng kí</a>
+                </button>
+            </div>
+
+            <div class="account">
+                <img class="avt-account" src="./assets/images/avt.jpeg" alt="">
+
+                <div class="account-manage">
+                    <div class="header_account-manage">
+                        <img class="avt-account-1" src="./assets/images/avt.jpeg" alt="">
+                        <div class="info-account">
+                            <h4 class="name-account">Nguyen Thanh Chung</h4>
+                            <p class="email-account">thanhchungrc229@gmail.com</p>
+                        </div>
+                    </div>
+                    <hr style="margin: 10px 0; background-color: var(--text-color)">
+                    <div class="list-manage">
+                        <ul class="list">
+                            <a class="item">Đăng bài</a>
+                            <a href="./blogOfOwner.html" class="item">Danh sách Blogs</a>
+                            <a class="item">Đăng xuất</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home -->
+    <section id="home" class="home">
+        <div class="home-text container">
+            <!-- <h2 class="home-title">The TNC Blogs</h2>
+            <span class="home-subtitle">Write down What you think</span> -->
+        </div>
+    </section>
+
+    <section class="infoUserBlog container">
+        <div class="profile">
+            <img src="./assets/images/avt.jpeg" alt="" class="profile-img">
+            <span class="profile-name">Nguyeenx Thanh CHung</span>
+        </div>
+        <div class="detail">
+            <div class="time">
+                <span class="post-txt">Được đăng vào: 22 sep 2024</span>
+                <span style="margin: 0 16px;"> - </span>
+                <span class="post-txt">12 phuts đọc</span>
+            </div>
+            <div class="icon-control">
+                <div class="icon icon-view">
+                    <i class='bx bx-show'></i>
+                    <p>123.456</p>
+                </div>
+                <div class="icon icon-bookmark">
+                    <i class='bx bx-bookmark'></i>
+                    <p>56.789</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Home -->
+    <div class="content-blog container">
+        <section class="blog-header">
+            <div class="header-content blog-container">
+                <h1 class="blog-title">How to push code into Github.com</h1>
+            </div>
+        </section>
+
+        <!-- Post -->
+        <section class="blog-container">
+            <h2 class="sub-heading">Create Account Github.com</h2>
+            <p class="blog-text">Do số lượng bài viết downvote lớn, và xảy ra trong một khoảng thời gian ngắn, Ban Quản
+                trị Viblo đã tiến hành tìm hiểu và xác định, đây là hành vi có ý đồ phá hoại, vi phạm Điều khoản sử dụng
+                của Viblo.</p>
+            <p class="blog-text">Do số lượng bài viết downvote lớn, và xảy ra trong một khoảng thời gian ngắn, Ban Quản
+                trị Viblo đã tiến hành tìm hiểu và xác định, đây là hành vi có ý đồ phá hoại, vi phạm Điều khoản sử dụng
+                của Viblo.</p>
+            <h2 class="sub-heading">Tính năng upvote, downvote được Viblo phát triển để người dùng thể hiện quan điểm,
+                đánh giá cá nhân của mình với những nội dung bài viết, bình luận, series, hay câu hỏi.</h2>
+            <p class="blog-text">One of the primary advantages of online flower delivery services is the convenience
+                they offer. With just a few clicks, you can browse through a vast selection of floral arrangements,
+                select the perfect bouquet, and schedule delivery without ever leaving your home or office.</p>
+            <p class="blog-text">One of the primary advantages of online flower delivery services is the convenience
+                they offer. With just a few clicks, you can browse through a vast selection of floral arrangements,
+                select the perfect bouquet, and schedule delivery without ever leaving your home or office.</p>
+        </section>
+    </div>
+
+    <!-- Comment -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"
+        nonce="2CeoSTJF">
+        </script>
+
+    <!-- Đoạn mã nhúng cho plugin bình luận -->
+    <div class="comment container">
+        <div class="fb-comments commnent" data-href="http://127.0.0.1:5500/blogpage.html" data-width="100%"
+            data-numposts="5">
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="footer">
+        <p> <span style="color: var(--second-color); font-weight: bold">TNC Blogs</span> nơi gặp gỡ đất trời</p>
+    </div>
+
+    <script src="./JS/index.js"></script>
+
+</body>
+
+</html>
