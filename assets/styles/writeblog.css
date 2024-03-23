@@ -1,0 +1,48 @@
+.input-blog {
+    padding: 16px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+.timeAndTopic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.topic {
+    width: 70%;
+}
+
+.time {
+    width: 30%;
+    justify-self: end;
+}
+
+.sl_time-blog {
+    width: 100%;
+}
+
+h3 {
+    margin-bottom: 1rem;
+}
+
+#submitBtn {
+    padding: 16px 32px;
+    margin: 2rem 0;
+    border: none;
+    display: flex;
+    margin-left: auto;
+    font-size: 1.05rem;
+    border-radius: 8px;
+    font-weight: 600;
+    background-color: var(--second-color);
+    color: var(--bg-color);
+    cursor: pointer;
+}
+
+#submitBtn:hover {
+    opacity: 0.75;
+}

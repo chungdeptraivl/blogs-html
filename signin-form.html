@@ -42,9 +42,13 @@
             <div class="upper-form">
                 <h2 class="title-form">Đăng kí</h2>
                 <div class="avt-user">
-                    <img src="./assets/images/avt.jpeg" class="avt" alt="">
-                    <input type="file" name="avtuser" class="inputavt" id="">
+                    <label for="avtUpload" class="avt-upload-label">
+                        <img src="./assets/images/avt.jpeg" class="avt" alt="">
+                        <span class="upload-icon">+</span>
+                    </label>
+                    <input type="file" name="avtuser" id="avtUpload" class="inputavt" style="display: none;">
                 </div>
+
                 <br>
                 <label for="">Tên đăng nhập</label>
                 <input class="input-txt" type="text" name="username"> <br>
@@ -62,17 +66,6 @@
             </div>
         </form>
     </div>
-
-    <!-- Footer -->
-    <!-- <div class="footer container">
-        <p>$#169; TNC Blogs nơi gặp gỡ đất trời</p>
-        <div class="social">
-            <a href="#"><i class="bx bxl-facebook"></i></a>
-            <a href="#"><i class="bx bxl-facebook"></i></a>
-            <a href="#"><i class="bx bxl-facebook"></i></a>
-            <a href="#"><i class="bx bxl-facebook"></i></a>
-        </div>
-    </div> -->
 
     <script src="./JS/index.js"></script>
 </body>

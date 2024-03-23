@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNC Blogs</title>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+    <link rel="stylesheet" href="assets/styles/header.css">
+    <link rel="stylesheet" href="assets/styles/blog.css">
+    <link rel="stylesheet" href="assets/styles/writeblog.css">
+    <link rel="stylesheet" href="./assets/styles/footer.css">
+</head>
+
+<body>
+    <!-- navigation -->
+    <header>
+        <div class="nav container">
+            <a href="/" class="logo">TNC <span>Blogs</span></a>
+            <ul class="header_menu">
+                <a href="/" class="item filter-item active-filter">Trang chủ</a>
+                <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
+                <a href="/hightBlogs.html" class="item filter-item">Đánh giá cao</a>
+                <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
+                <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
+            </ul>
+
+            <!-- account -->
+            <div class="account">
+                <img class="avt-account" src="./assets/images/avt.jpeg" alt="">
+
+                <div class="account-manage">
+                    <div class="header_account-manage">
+                        <img class="avt-account-1" src="./assets/images/avt.jpeg" alt="">
+                        <div class="info-account">
+                            <h4 class="name-account">Nguyen Thanh Chung</h4>
+                            <p class="email-account">thanhchungrc229@gmail.com</p>
+                        </div>
+                    </div>
+                    <hr style="margin: 10px 0; background-color: var(--text-color)">
+                    <div class="list-manage">
+                        <ul class="list">
+                            <a class="item">Đăng bài</a>
+                            <a href="./blogOfOwner.html" class="item">Danh sách Blogs</a>
+                            <a class="item">Đăng xuất</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home -->
+    <section id="home" class="home">
+        <div class="home-text container">
+        </div>
+    </section>
+
+    <!-- Title -->
+    <section class="title-blogs container">
+        <h2 style="text-align: center; margin: 2rem">Tiêu đề Blog</h2>
+        <input class="input-blog input_title-blog container" type="text">
+    </section>
+
+    <!-- topic and time -->
+    <section class="timeAndTopic container">
+        <div class="topic">
+            <h3>Lựa chọn các Topics</h3>
+            <input class="input-blog input_topic-blog container" type="text" list="items" id="topicInput">
+            <datalist id="items">
+                <option value="C++">C++</option>
+                <option value="Ruby">Ruby</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Java">Java</option>
+                <option value="React">React</option>
+                <option value="PHP">PHP</option>
+            </datalist>
+        </div>
+
+        <div class="time">
+            <h3>Lựa chọn thời gian đăng</h3>
+            <select name="time" id="select-time" class="input-blog sl_time-blog">
+                <option class="option-time" value="now">
+                    Đăng ngay
+                </option>
+                <option class="option-time" value="picktime">Chọn thời gian đăng</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Write Blogs -->
+    <section class="container">
+        <h2 style="text-align: center; margin: 0.8rem 0 2rem 0">Nội dung của Blogs</h2>
+        <form action="" method="post" id="myForm">
+            <textarea name="mytextarea" id="default"></textarea>
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+    </section>
+
+
+
+    <!-- Footer -->
+    <div class="footer">
+        <p> <span style="color: var(--second-color); font-weight: bold">TNC Blogs</span> nơi gặp gỡ đất trời</p>
+    </div>
+
+    <script src="./JS/tinymce/tinymce.min.js"></script>
+    <script src="./JS/index.js"></script>
+    <script>
+        // Lắng nghe sự kiện submit của form
+        document.getElementById('myForm').addEventListener('submit', function (event) {
+            // Ngăn chặn hành vi mặc định của form (gửi dữ liệu và làm tải lại trang)
+            event.preventDefault();
+
+            // Lấy nội dung từ textarea
+            var textareaContent = document.getElementById('default').value;
+
+            // Hiển thị nội dung trong console
+            console.log('Nội dung của Blogs:');
+            console.log(textareaContent);
+        });
+    </script>
+
+</body>
+
+</html>

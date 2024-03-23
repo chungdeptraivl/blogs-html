@@ -84,8 +84,54 @@ label {
 }
 
 .avt {
-    width: 8rem;
-    height: 8rem;
+    width: 6rem;
+    height: 6rem;
     border-radius: 50%;
-    border: 4px solid var(--text-color);;
+    border: 4px solid var(--text-color);
+}
+
+.file {
+    position: absolute;
+}
+
+.inputavt {
+    background-color: var(--second-color);
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    position: relative;
+
+}
+
+.avt-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avt-upload-label {
+    position: relative;
+}
+
+.upload-icon {
+    position: absolute;
+    bottom: 5px;
+    /* Điều chỉnh vị trí dấu cộng so với dưới ảnh */
+    right: 5px;
+    /* Điều chỉnh vị trí dấu cộng so với bên phải ảnh */
+    background-color: rgba(206, 204, 204, 0.9);
+    /* Màu nền của dấu cộng */
+    border-radius: 50%;
+    /* Tạo hình dạng hình tròn cho dấu cộng */
+    width: 30px;
+    /* Điều chỉnh kích thước dấu cộng */
+    height: 30px;
+    /* Điều chỉnh kích thước dấu cộng */
+    line-height: 30px;
+    /* Canh chỉnh dấu cộng giữa ảnh */
+    text-align: center;
+    /* Canh chỉnh dấu cộng giữa ảnh */
+    cursor: pointer;
+    /* Biến con trỏ thành hình bàn tay khi di chuột qua */
 }
