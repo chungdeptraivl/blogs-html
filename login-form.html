@@ -21,7 +21,6 @@
             <ul class="header_menu">
                 <a href="/" class="item filter-item">Trang chủ</a>
                 <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
-                <a href="/hightBlogs.html" class="item filter-item">Đánh giá cao</a>
                 <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
                 <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
             </ul>
@@ -38,13 +37,21 @@
 
     <!-- Form login -->
     <div class="form">
-        <form action="" class="sub-form_login">
+        <form id="loginForm" class="sub-form_login" onsubmit="return validateForm(event)">
             <div class="upper-form">
                 <h2 class="title-form">Đăng nhập</h2>
-                <label for="">Email</label>
-                <input class="input-txt" type="email" name="email"> <br>
-                <label for="">Mật khẩu</label>
-                <input class="input-txt" type="password" name="password" id=""> <br>
+                <div class="avt-user">
+                    <label for="avtUpload" class="avt-upload-label">
+                        <a href="/" class="logo" style="color: var(--text-color); font-size: 2.3rem">TNC
+                            <span>Blogs</span></a>
+                    </label>
+                </div> <br>
+                <label class="txt-label" for="email">Tên đăng nhập</label>
+                <input id="email" class="input-txt" type="text" name="text">
+                <span id="emailError" class="error-message"></span> <br>
+                <label class="txt-label" for="password">Mật khẩu</label>
+                <input id="password" class="input-txt" type="password" name="password" id="">
+                <span id="passwordError" class="error-message"></span> <br>
                 <div class="btn">
                     <button class="login">Đăng nhập</button>
                 </div>
@@ -57,6 +64,82 @@
     </div>
 
     <script src="./JS/index.js"></script>
+    <script>
+        async function validateForm(event) {
+
+            event.preventDefault();
+
+            var username = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var emailError = document.getElementById('emailError');
+            var passwordError = document.getElementById('passwordError');
+            var isValid = true;
+
+            // Reset error messages
+            emailError.innerText = '';
+            passwordError.innerText = '';
+
+            // Email validation
+            if (username.trim() === '') {
+                emailError.innerText = 'Vui lòng nhập tên đăng nhập.';
+                isValid = false;
+            }
+
+            // Password validation
+            if (password.trim() === '') {
+                passwordError.innerText = 'Vui lòng nhập mật khẩu.';
+                isValid = false;
+            } else if (password.trim().length < 6) {
+                document.getElementById("passwordError").innerHTML = "Mật khẩu phải có ít nhất 6 ký tự";
+                isValid = false;
+            }
+
+            if (isValid) {
+                var user = {
+                    username: username,
+                    password: password
+                };
+
+                try {
+                    // make POST request to API endpoint
+                    const response = await fetch('http://localhost:5105/api/Account/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
+                    });
+
+                    if (!response.ok) {
+                        // Phân tích cú pháp JSON từ phản hồi
+                        const responseData = await response.text();
+
+                        if (responseData.trim().length > 0) {
+                            alert(responseData)
+                        }
+                    } else {
+                        const userData = await response.json();
+
+                        localStorage.setItem('user', JSON.stringify(userData))
+
+                        clearForm();
+
+                        window.location.href = '/'
+
+                    }
+                } catch (error) {
+                    console.error('There was an error registering the user:', error?.message);
+                }
+            }
+
+            return isValid;
+        }
+
+        function clearForm() {
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
+        }
+    </script>
 </body>
 
 </html>

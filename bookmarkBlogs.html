@@ -23,11 +23,10 @@
             <ul class="header_menu">
                 <a href="/" class="item filter-item">Trang chủ</a>
                 <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
-                <a href="/hightBlogs.html" class="item filter-item">Đánh giá cao</a>
                 <a href="/bookmarkBlogs.html" class="item filter-item active-filter">Bookmark</a>
                 <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
             </ul>
-            <div class="btnform">
+            <div id="btnForm" class="btnform">
                 <button class="btn_login">
                     <a href="/login-form.html">Đăng nhập</a>
                 </button>
@@ -37,23 +36,24 @@
             </div>
 
             <!-- account -->
-            <div class="account">
-                <img class="avt-account" src="./assets/images/avt.jpeg" alt="">
+            <div id="accountManage" class="account">
+                <img id="avtAccount" class="avt-account" src="" alt="">
 
                 <div class="account-manage">
                     <div class="header_account-manage">
-                        <img class="avt-account-1" src="./assets/images/avt.jpeg" alt="">
+                        <img id="avtAccount1" class="avt-account-1" src="" alt="">
                         <div class="info-account">
-                            <h4 class="name-account">Nguyen Thanh Chung</h4>
-                            <p class="email-account">thanhchungrc229@gmail.com</p>
+                            <h4 id="nameAccount" class="name-account"></h4>
                         </div>
                     </div>
                     <hr style="margin: 10px 0; background-color: var(--text-color)">
                     <div class="list-manage">
                         <ul class="list">
                             <a class="item">Đăng bài</a>
-                            <a href="./blogOfOwner.html" class="item">Danh sách Blogs</a>
-                            <a class="item">Đăng xuất</a>
+                            <a id="ownerListPost" class="item">Danh sách Blogs</a>
+                            <button class="item" onclick="logout()"
+                                style="border: none; border-radius: 8px; background: var(--second-color); margin-top: 1rem">Đăng
+                                xuất</button>
                         </ul>
                     </div>
                 </div>

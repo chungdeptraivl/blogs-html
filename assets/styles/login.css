@@ -1,7 +1,8 @@
 .form {
     display: flex;
     justify-content: center;
-    padding-top: 10rem;
+    padding-top: 8rem;
+    min-width: 400px;
 }
 
 .sub-form {
@@ -9,10 +10,15 @@
     align-items: center;
     flex-direction: column;
     width: 30vw;
-    height: 70vh;
+    padding: 0 0 2rem 0;
     border-radius: 12px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     background-color: var(--bg-color);
+}
+
+.upper-form {
+    padding: 0 40px;
+    width: 100%;
 }
 
 .sub-form_login {
@@ -20,7 +26,7 @@
     align-items: center;
     flex-direction: column;
     width: 30vw;
-    height: 50vh;
+    padding: 0 0 2rem 0;
     border-radius: 12px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     background-color: var(--bg-color);
@@ -32,7 +38,7 @@
     text-align: center;
 }
 
-label {
+.txt-label {
     padding-left: 16px;
     opacity: 0.75;
 }
@@ -44,7 +50,7 @@ label {
     outline: none;
     margin-top: 8px;
     padding: 12px 24px;
-    width: 20vw;
+    width: 100%;
     background-color: #eaeeed;
 }
 
@@ -134,4 +140,12 @@ label {
     /* Canh chỉnh dấu cộng giữa ảnh */
     cursor: pointer;
     /* Biến con trỏ thành hình bàn tay khi di chuột qua */
+}
+
+.error-message {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: red;
+    padding-left: 16px;
+    margin-bottom: 16px;
 }

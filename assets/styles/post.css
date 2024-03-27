@@ -54,6 +54,12 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    cursor: pointer;
+}
+
+.post-title:hover {
+    opacity: 0.8;
+    color: var(--second-color);
 }
 
 .post-txt {
@@ -111,19 +117,26 @@
     font-weight: bold;
     border: none;
     border-radius: 4px;
-    color: var(--text-color);
-}
-
-.btn:hover {
-    opacity: 0.8;
 }
 
 .btn-edit {
-    background-color: gold;
+    border: 1px solid var(--second-color);
+    color: var(--text-color);
+}
+
+.btn-edit:hover {
+    background-color: var(--second-color);
+    color: var(--bg-color);
 }
 
 .btn-delete {
-    background-color: rgb(246, 94, 94);
+    border: 1px solid red;
+    color: var(--text-color);
+}
+
+.btn-delete:hover {
+    color: var(--bg-color);
+    background-color: red;
 }
 
 .footer-post {

@@ -7,18 +7,15 @@
 
 .timeAndTopic {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 3rem;
 }
 
-.topic {
-    width: 70%;
-}
+
 
 .time {
-    width: 30%;
-    justify-self: end;
+    display: flex;
+    flex-direction: column;    
 }
 
 .sl_time-blog {
@@ -31,7 +28,6 @@ h3 {
 
 #submitBtn {
     padding: 16px 32px;
-    margin: 2rem 0;
     border: none;
     display: flex;
     margin-left: auto;
@@ -45,4 +41,18 @@ h3 {
 
 #submitBtn:hover {
     opacity: 0.75;
+}
+
+#description-blog {
+    width: 100%;
+    height: 300px;
+    resize: none;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.sl-tag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

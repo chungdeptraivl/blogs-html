@@ -71,14 +71,22 @@ header.shadow .header_menu .item:not(.active-filter) {
     border-radius: 4px;
 }
 
-.btnform, .account {
+.hide {
+    display: none !important;
+}
+
+
+.btnform,
+.account {
     width: 20%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.btnform .btn_login, .btnform .btn_signin {
+
+.btnform .btn_login,
+.btnform .btn_signin {
     padding: 8px 8px;
     text-transform: uppercase;
     font-weight: bold;
@@ -92,12 +100,14 @@ header.shadow .header_menu .item:not(.active-filter) {
     margin-right: 8px;
 }
 
-.btnform .btn_login a, .btnform .btn_signin a {
+.btnform .btn_login a,
+.btnform .btn_signin a {
     color: var(--bg-color);
     font-size: 0.7rem;
 }
 
-.btnform .btn_login:hover, .btnform .btn_signin:hover {
+.btnform .btn_login:hover,
+.btnform .btn_signin:hover {
     opacity: 0.75;
     transition: 0.3s;
 }
@@ -124,6 +134,7 @@ header.shadow .header_menu .item:not(.active-filter) {
     border: 2px solid var(--second-color);
 }
 
+
 .account {
     position: relative;
 }
@@ -141,11 +152,11 @@ header.shadow .header_menu .item:not(.active-filter) {
 
 .account-manage {
     position: absolute;
+    display: none;
     top: 100%;
     right: 20px;
     padding: 16px 24px;
     width: 280px;
-    display: none;
     background-color: #99c4f3;
     border-radius: 8px;
     animation: showManage 0.3s ease-in-out;
@@ -157,7 +168,7 @@ header.shadow .header_menu .item:not(.active-filter) {
     flex-direction: column;
 }
 
-.list > .item {
+.list>.item {
     padding: 8px 16px;
     font-size: 1rem;
     font-weight: 600;
@@ -165,7 +176,7 @@ header.shadow .header_menu .item:not(.active-filter) {
     cursor: pointer;
 }
 
-.list > .item:hover {
+.list>.item:hover {
     color: var(--bg-color);
 }
 

@@ -72,16 +72,17 @@
 
     </div>
 
-    <!-- Comment -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"
-        nonce="2CeoSTJF">
-        </script>
-
-    <!-- Đoạn mã nhúng cho plugin bình luận -->
-    <div id="comment-post" class="comment container">
-        <div class="fb-comments commnent" data-href="" data-width="100%" data-numposts="5">
-        </div>
+    <!-- xoas -->
+    <div class=" container">
+        <button id="deleteBtn" class="btn delete-btn" style="background-color: #a60606; margin-top: 1rem; padding: 16px 32px;
+        border: none;
+        display: flex;
+        margin-left: auto;
+        font-size: 1.05rem;
+        border-radius: 8px;
+        font-weight: 600;
+        color: var(--bg-color);
+        cursor: pointer;">Xoá</button>
     </div>
 
 
@@ -94,15 +95,11 @@
     <script src="./JS/index.js"></script>
 
     <script>
-        
+
     </script>
 
     <script>
         // Lấy URL hiện tại
-        const currentURL = window.location.href;
-        document.querySelector('.fb-comments').setAttribute('data-href', currentURL);
-
-
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const postId = urlParams.get('postId');
@@ -147,7 +144,7 @@
                     </div>
                 </div>`;
 
-                const formattedTime = convertTime(data.publishedAt);
+                const formattedTime = convertTime(data.createdAt);
                 document.querySelector('.post-txt').innerText = `Được đăng vào: ${formattedTime}`;
 
 
@@ -174,7 +171,45 @@
         // Gọi hàm để lấy dữ liệu từ API và hiển thị lên trang
         getPost(postId, token);
 
+        async function deletePost(postId, token) {
+            try {
+                const response = await fetch(`http://localhost:5105/api/Post/${postId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Đã có lỗi xảy ra khi lấy dữ liệu từ API.');
+                }
+
+                 const prevHref = window.history.back();
+
+                window.location.href = `http://localhost:5500/blogOfOwner.html?owner=${data.author.id}`
+                window.location.reload();
+
+            } catch (error) {
+                console.error('Đã có lỗi xảy ra:', error);
+                return null;
+            }
+        }
+
+        function handleDeleteButtonClick() {
+            const confirmDelete = window.confirm("Bạn có chắc chắn muốn xoá Blog này không?");
+            if (confirmDelete) {
+                deletePost(postId, token);
+            }
+        }
+
+        // Gán sự kiện cho nút xoá
+        const deleteButton = document.getElementById('deleteBtn');
+        deleteButton.addEventListener('click', handleDeleteButtonClick);
+
+
     </script>
+
 
 </body>
 

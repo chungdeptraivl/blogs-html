@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TNC Blogs</title>
-
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="./assets/styles/style.css">
     <link rel="stylesheet" href="assets/styles/header.css">
     <link rel="stylesheet" href="assets/styles/blog.css">
     <link rel="stylesheet" href="assets/styles/writeblog.css">
+    <link rel="stylesheet" href="assets/styles/checkbox.css">
     <link rel="stylesheet" href="./assets/styles/footer.css">
 </head>
 
@@ -20,109 +20,198 @@
         <div class="nav container">
             <a href="/" class="logo">TNC <span>Blogs</span></a>
             <ul class="header_menu">
-                <a href="/" class="item filter-item active-filter">Trang chủ</a>
+                <a href="/" class="item filter-item">Trang chủ</a>
                 <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
-                <a href="/hightBlogs.html" class="item filter-item">Đánh giá cao</a>
                 <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
-                <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
+                <a href="/writeBlog.html" class="item filter-item active-filter">Đăng bài</a>
             </ul>
-
             <!-- account -->
-            <div class="account">
-                <img class="avt-account" src="./assets/images/avt.jpeg" alt="">
-
+            <div id="accountManage" class="account">
+                <img id="avtAccount" class="avt-account" src="" alt="">
                 <div class="account-manage">
                     <div class="header_account-manage">
-                        <img class="avt-account-1" src="./assets/images/avt.jpeg" alt="">
+                        <img id="avtAccount1" class="avt-account-1" src="" alt="">
                         <div class="info-account">
-                            <h4 class="name-account">Nguyen Thanh Chung</h4>
-                            <p class="email-account">thanhchungrc229@gmail.com</p>
+                            <h4 id="nameAccount" class="name-account"></h4>
                         </div>
                     </div>
                     <hr style="margin: 10px 0; background-color: var(--text-color)">
                     <div class="list-manage">
                         <ul class="list">
                             <a class="item">Đăng bài</a>
-                            <a href="./blogOfOwner.html" class="item">Danh sách Blogs</a>
-                            <a class="item">Đăng xuất</a>
+                            <a id="ownerListPost" class="item">Danh sách Blogs</a>
+                            <button class="item" onclick="logout()"
+                                style="border: none; border-radius: 8px; background: var(--second-color); margin-top: 1rem">Đăng
+                                xuất</button>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
     <!-- Home -->
     <section id="home" class="home">
         <div class="home-text container">
         </div>
     </section>
-
-    <!-- Title -->
-    <section class="title-blogs container">
-        <h2 style="text-align: center; margin: 2rem">Tiêu đề Blog</h2>
-        <input class="input-blog input_title-blog container" type="text">
-    </section>
-
-    <!-- topic and time -->
-    <section class="timeAndTopic container">
-        <div class="topic">
-            <h3>Lựa chọn các Topics</h3>
-            <input class="input-blog input_topic-blog container" type="text" list="items" id="topicInput">
-            <datalist id="items">
-                <option value="C++">C++</option>
-                <option value="Ruby">Ruby</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="Java">Java</option>
-                <option value="React">React</option>
-                <option value="PHP">PHP</option>
-            </datalist>
-        </div>
-
-        <div class="time">
-            <h3>Lựa chọn thời gian đăng</h3>
-            <select name="time" id="select-time" class="input-blog sl_time-blog">
-                <option class="option-time" value="now">
-                    Đăng ngay
-                </option>
-                <option class="option-time" value="picktime">Chọn thời gian đăng</option>
-            </select>
-        </div>
-    </section>
-
-    <!-- Write Blogs -->
     <section class="container">
-        <h2 style="text-align: center; margin: 0.8rem 0 2rem 0">Nội dung của Blogs</h2>
-        <form action="" method="post" id="myForm">
-            <textarea name="mytextarea" id="default"></textarea>
-            <button type="submit" id="submitBtn">Submit</button>
+        <form id="myForm" class="container">
+            <!-- Title -->
+            <section class="title-blogs container">
+                <h2 style="margin-bottom: 1rem">Tiêu đề Blog</h2>
+                <input id="titlePost" name="title" class="input-blog input_title-blog container" type="text">
+            </section>
+            <!-- topic and time -->
+            <section class="timeAndTopic container">
+                <div class="topic">
+                    <h3>Tags Blog</h3>
+                    <div class="sl-tag">
+                        <div class="checkbox-wrapper-13">
+                            <input id="c1-13" type="checkbox" value="1">
+                            <label for="c1-13">Lập trình</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c2-13" type="checkbox" value="2">
+                            <label for="c2-13">Công nghệ</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c3-13" type="checkbox" value="3">
+                            <label for="c3-13">Blockchain</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c4-13" type="checkbox" value="4">
+                            <label for="c4-13">Quản lý dự án</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c5-13" type="checkbox" value="5">
+                            <label for="c5-13">Học tập</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="time">
+                    <h3>Lựa chọn thời gian đăng</h3>
+                    <select name="time" id="select-time" class="input-blog sl_time-blog">
+                        <option class="option-time" selected value="now">Đăng ngay</option>
+                        <option class="option-time" value="picktime">Chọn thời gian đăng</option>
+                    </select>
+                    <input type="datetime-local" id="future-time" class="input-blog" style="display: none; width: 100%; margin-top: 1rem">
+                </div>
+            </section>
+            <!-- Mô tả -->
+            <section class="container">
+                <h3>Mô tả Blog</h3>
+                <textarea name="description" id="description-blog"></textarea>
+            </section>
+            <!-- Nội dung -->
+            <section class="container">
+                <h2 style="text-align: center; margin: 0.8rem 0 2rem 0">Nội dung của Blogs</h2>
+                <textarea name="content" id="default"></textarea>
+            </section>
+            <section class="container">
+                <button type="submit" id="submitBtn">Thêm</button>
+            </section>
         </form>
     </section>
-
-
-
     <!-- Footer -->
     <div class="footer">
         <p> <span style="color: var(--second-color); font-weight: bold">TNC Blogs</span> nơi gặp gỡ đất trời</p>
     </div>
-
     <script src="./JS/tinymce/tinymce.min.js"></script>
+    <script src="./JS/tinymce.js"></script>
     <script src="./JS/index.js"></script>
     <script>
-        // Lắng nghe sự kiện submit của form
-        document.getElementById('myForm').addEventListener('submit', function (event) {
-            // Ngăn chặn hành vi mặc định của form (gửi dữ liệu và làm tải lại trang)
-            event.preventDefault();
+        const linkWriteBlog = window.location.href
 
-            // Lấy nội dung từ textarea
-            var textareaContent = document.getElementById('default').value;
+        console.log(linkWriteBlog)
 
-            // Hiển thị nội dung trong console
-            console.log('Nội dung của Blogs:');
-            console.log(textareaContent);
+        if (linkWriteBlog) {
+            if (!token || token.length < 0) {
+                window.location.href = '/login-form.html'
+            }
+        }
+    </script>
+    <script>
+        const form = document.getElementById('myForm');
+        const selectElement = document.getElementById("select-time");
+        const futureTimeInput = document.getElementById("future-time");
+
+        function getCheckedTags() {
+            const checkboxes = document.querySelectorAll('.checkbox-wrapper-13 input[type="checkbox"]:checked');
+            const tags = Array.from(checkboxes).map(checkbox => checkbox.value);
+            return tags
+        }
+
+        function getConent() {
+            const formElem = document.getElementById('myForm');
+            const formData = new FormData(formElem);
+            return formData
+                .get('content');
+        }
+
+        async function submitForm(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('titlePost').value;
+            const timePost = selectElement.value;
+            const description = document.getElementById('description-blog').value;
+            const content = getConent();
+            const tags = getCheckedTags();
+
+            const payload = {
+                title: title,
+                desc: description,
+                content: content,
+                tagIds: tags,
+                publishedAt: timePost === "now" ? new Date().toISOString() : futureTimeInput.value
+            };
+
+
+            console.log(futureTimeInput.value)
+            try {
+                const response = await fetch('http://localhost:5105/api/Post', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': '*/*',
+                        'Content-Type': 'application/json-patch+json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    console.log('Bài viết đã được đăng thành công!');
+                    form.reset();
+                } else {
+                    console.error('Đã có lỗi xảy ra khi đăng bài.');
+                }
+            } catch (error) {
+                console.error('Đã có lỗi xảy ra:', error);
+            }
+        }
+
+        form.addEventListener('submit', submitForm);
+
+
+    </script>
+    <script>
+        // Hàm formatDate cho phép định dạng ngày tháng giờ thành chuỗi
+        function formatDate(date) {
+            return date.toISOString();
+        }
+
+        // Lắng nghe sự kiện onchange của thẻ select
+        selectElement.addEventListener("change", function () {
+            const selectedValue = this.value;
+
+            // Nếu người dùng chọn "Đăng ngay", thì gán giá trị ngày hiện tại
+            if (selectedValue === "now") {
+                document.getElementById('select-time').value = formatDate(new Date());
+                document.getElementById('future-time').style.display = 'none'; // Ẩn input chọn thời gian trong tương lai nếu đã chọn "Đăng ngay"
+            } else {
+                document.getElementById('future-time').style.display = 'block'; // Hiển thị input chọn thời gian trong tương lai nếu chọn "Chọn thời gian đăng"
+            }
         });
     </script>
-
 </body>
 
 </html>

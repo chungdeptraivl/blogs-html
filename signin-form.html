@@ -21,7 +21,6 @@
             <ul class="header_menu">
                 <a href="/" class="item filter-item">Trang chủ</a>
                 <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
-                <a href="/hightBlogs.html" class="item filter-item">Đánh giá cao</a>
                 <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
                 <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
             </ul>
@@ -38,36 +37,145 @@
 
     <!-- Form login -->
     <div class="form">
-        <form action="" class="sub-form">
+        <form action="" class="sub-form" onsubmit="return validateForm(event)">
             <div class="upper-form">
                 <h2 class="title-form">Đăng kí</h2>
                 <div class="avt-user">
                     <label for="avtUpload" class="avt-upload-label">
-                        <img src="./assets/images/avt.jpeg" class="avt" alt="">
-                        <span class="upload-icon">+</span>
+                        <a href="/" class="logo" style="color: var(--text-color); font-size: 2.3rem">TNC
+                            <span>Blogs</span></a>
                     </label>
-                    <input type="file" name="avtuser" id="avtUpload" class="inputavt" style="display: none;">
                 </div>
 
                 <br>
-                <label for="">Tên đăng nhập</label>
-                <input class="input-txt" type="text" name="username"> <br>
-                <label for="">Email</label>
-                <input class="input-txt" type="email" name="email"> <br>
-                <label for="">Mật khẩu</label>
-                <input class="input-txt" type="password" name="password" id=""> <br>
+                <label class="txt-label" for="username">Tên tài khoản</label>
+                <input class="input-txt" type="text" name="username" id="username">
+                <span class="error-message" id="usernameError"></span> <br>
+                <label class="txt-label" for="email">Email</label>
+                <input class="input-txt" type="email" name="email" id="email">
+                <span class="error-message" id="emailError"></span> <br>
+                <label class="txt-label" for="password">Mật khẩu</label>
+                <input class="input-txt" type="password" name="password" id="password">
+                <span class="error-message" id="passwordError"></span> <br>
+                <label class="txt-label" for="confirmPassword">Nhập lại mật khẩu</label>
+                <input class="input-txt" type="password" name="confirmPassword" id="confirmPassword">
+                <span class="error-message" id="confirmPasswordError"></span> <br>
                 <div class="btn">
-                    <button class="login">Đăng nhập</button>
+                    <button class="login">Đăng kí</button>
                 </div>
             </div>
             <div class="bottom-form">
                 <div class="no-account">Nếu bạn đã có tài khoản </div>
-                <a href="login-form.html" class="signin-link"> Đăng kí </a>
+                <a href="login-form.html" class="signin-link"> Đăng nhập </a>
             </div>
         </form>
     </div>
 
     <script src="./JS/index.js"></script>
+
+    <script>
+        async function validateForm(event) {
+            event.preventDefault();
+
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var isValid = true;
+
+            document.getElementById("usernameError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("passwordError").innerHTML = "";
+            document.getElementById("confirmPasswordError").innerHTML = "";
+
+            if (username.trim() === "") {
+                document.getElementById("usernameError").innerHTML = "Tên tài khoản không được để trống";
+                isValid = false;
+            }
+
+            if (email.trim() === "") {
+                document.getElementById("emailError").innerHTML = "Email không được để trống";
+                isValid = false;
+            }
+
+            if (password.trim() === "") {
+                document.getElementById("passwordError").innerHTML = "Mật khẩu không được để trống";
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById("passwordError").innerHTML = "Mật khẩu phải có ít nhất 6 ký tự";
+                isValid = false;
+            }
+
+            if (confirmPassword.trim() === "") {
+                document.getElementById("confirmPasswordError").innerHTML = "Nhập lại mật khẩu không được để trống";
+                isValid = false;
+            } else if (confirmPassword !== password) {
+                document.getElementById("confirmPasswordError").innerHTML = "Mật khẩu không khớp";
+                isValid = false;
+            }
+
+            if (isValid) {
+                var user = {
+                    username: username,
+                    email: email,
+                    password: password
+                };
+
+                try {
+                    // make POST request to API endpoint
+                    const response = await fetch('http://localhost:5105/api/Account/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        if (errorData && Array.isArray(errorData)) {
+                            errorData.forEach(error => {
+                                if (error.code === "DuplicateUserName") {
+                                    document.getElementById("usernameError").innerHTML = error.description;
+                                }
+                                if (error.code === "DuplicateEmail") {
+                                    document.getElementById("emailError").innerHTML = error.description;
+                                }
+                            });
+                        } else {
+                            alert("Có lỗi trong quá trình đăng nhập")
+                        }
+
+
+                    } else {
+                        alert('Đăng ký thành công!');
+
+                        const userData = await response.json();
+
+                        localStorage.setItem('user', JSON.stringify(userData))
+
+                        clearForm();
+                        window.location.href = '/'
+
+                    }
+                } catch (error) {
+                    console.error('There was an error registering the user:', error.message);
+                    // display error message to the user
+                }
+            }
+
+            return isValid;
+        }
+
+        function clearForm() {
+            document.getElementById("username").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
+            document.getElementById("confirmPassword").value = "";
+        }
+
+
+    </script>
 </body>
 
 </html>
