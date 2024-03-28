@@ -166,7 +166,7 @@
             };
 
 
-            console.log(futureTimeInput.value)
+
             try {
                 const response = await fetch('http://localhost:5105/api/Post', {
                     method: 'POST',
@@ -194,18 +194,13 @@
 
     </script>
     <script>
-        // Hàm formatDate cho phép định dạng ngày tháng giờ thành chuỗi
-        function formatDate(date) {
-            return date.toISOString();
-        }
-
         // Lắng nghe sự kiện onchange của thẻ select
         selectElement.addEventListener("change", function () {
             const selectedValue = this.value;
 
             // Nếu người dùng chọn "Đăng ngay", thì gán giá trị ngày hiện tại
             if (selectedValue === "now") {
-                document.getElementById('select-time').value = formatDate(new Date());
+                document.getElementById('select-time').value = 'now';
                 document.getElementById('future-time').style.display = 'none'; // Ẩn input chọn thời gian trong tương lai nếu đã chọn "Đăng ngay"
             } else {
                 document.getElementById('future-time').style.display = 'block'; // Hiển thị input chọn thời gian trong tương lai nếu chọn "Chọn thời gian đăng"

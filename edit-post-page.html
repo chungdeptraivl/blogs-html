@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNC Blogs</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+    <link rel="stylesheet" href="assets/styles/header.css">
+    <link rel="stylesheet" href="assets/styles/blog.css">
+    <link rel="stylesheet" href="assets/styles/writeblog.css">
+    <link rel="stylesheet" href="assets/styles/checkbox.css">
+    <link rel="stylesheet" href="./assets/styles/footer.css">
+</head>
+
+<body>
+    <!-- navigation -->
+    <header>
+        <div class="nav container">
+            <a href="/" class="logo">TNC <span>Blogs</span></a>
+            <ul class="header_menu">
+                <a href="/" class="item filter-item">Trang chủ</a>
+                <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
+                <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
+                <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
+            </ul>
+            <!-- account -->
+            <div id="accountManage" class="account">
+                <img id="avtAccount" class="avt-account" src="" alt="">
+                <div class="account-manage">
+                    <div class="header_account-manage">
+                        <img id="avtAccount1" class="avt-account-1" src="" alt="">
+                        <div class="info-account">
+                            <h4 id="nameAccount" class="name-account"></h4>
+                        </div>
+                    </div>
+                    <hr style="margin: 10px 0; background-color: var(--text-color)">
+                    <div class="list-manage">
+                        <ul class="list">
+                            <a class="item">Đăng bài</a>
+                            <a id="ownerListPost" class="item">Danh sách Blogs</a>
+                            <button class="item" onclick="logout()"
+                                style="border: none; border-radius: 8px; background: var(--second-color); margin-top: 1rem">Đăng
+                                xuất</button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Home -->
+    <section id="home" class="home">
+        <div class="home-text container">
+        </div>
+    </section>
+    <section class="container">
+        <form id="myForm" class="container">
+            <!-- Title -->
+            <section class="title-blogs container">
+                <h2 style="margin-bottom: 1rem">Tiêu đề Blog</h2>
+                <input id="titlePost" name="title" class="input-blog input_title-blog container" type="text">
+            </section>
+            <!-- topic and time -->
+            <section class="timeAndTopic container">
+                <div class="topic">
+                    <h3>Tags Blog</h3>
+                    <div class="sl-tag">
+                        <div class="checkbox-wrapper-13">
+                            <input id="c1-13" type="checkbox" value="1">
+                            <label for="c1-13">Lập trình</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c2-13" type="checkbox" value="2">
+                            <label for="c2-13">Công nghệ</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c3-13" type="checkbox" value="3">
+                            <label for="c3-13">Blockchain</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c4-13" type="checkbox" value="4">
+                            <label for="c4-13">Quản lý dự án</label>
+                        </div>
+                        <div class="checkbox-wrapper-13">
+                            <input id="c5-13" type="checkbox" value="5">
+                            <label for="c5-13">Học tập</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="time">
+                    <h3>Lựa chọn thời gian đăng</h3>
+                    <select name="time" id="select-time" class="input-blog sl_time-blog">
+                        <option class="option-time" value="now">Đăng ngay</option>
+                        <option class="option-time" selected value="picktime">Chọn thời gian đăng</option>
+                    </select>
+                    <input type="datetime-local" id="future-time" class="input-blog"
+                        style="width: 100%; margin-top: 1rem">
+                </div>
+            </section>
+            <!-- Mô tả -->
+            <section class="container">
+                <h3>Mô tả Blog</h3>
+                <textarea name="description" id="description-blog"></textarea>
+            </section>
+            <!-- Nội dung -->
+            <section class="container">
+                <h2 style="text-align: center; margin: 0.8rem 0 2rem 0">Nội dung của Blogs</h2>
+                <textarea name="content" id="default"></textarea>
+            </section>
+            <section class="container">
+                <button type="submit" id="submitBtn" style="background-color: rgb(204, 176, 18);">Sửa</button>
+            </section>
+        </form>
+    </section>
+    <!-- Footer -->
+    <div class="footer">
+        <p> <span style="color: var(--second-color); font-weight: bold">TNC Blogs</span> nơi gặp gỡ đất trời</p>
+    </div>
+    <script src="./JS/tinymce/tinymce.min.js"></script>
+    <script src="./JS/tinymce.js"></script>
+    <script src="./JS/index.js"></script>
+    <script>
+        const linkWriteBlog = window.location.href
+
+        console.log(linkWriteBlog)
+
+        if (linkWriteBlog) {
+            if (!token || token.length < 0) {
+                window.location.href = '/login-form.html'
+            }
+        }
+    </script>
+    <script>
+        const form = document.getElementById('myForm');
+        const selectElement = document.getElementById("select-time");
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const postId = urlParams.get('postId');
+
+        function getCheckedTags() {
+            const checkboxes = document.querySelectorAll('.checkbox-wrapper-13 input[type="checkbox"]:checked');
+            const tags = Array.from(checkboxes).map(checkbox => checkbox.value);
+            return tags
+        }
+
+        function getConent() {
+            const formElem = document.getElementById('myForm');
+            const formData = new FormData(formElem);
+            return formData
+                .get('content');
+        }
+
+        let title = document.getElementById('titlePost');
+        let timePost = selectElement;
+        let timePostPicker = document.getElementById('future-time');
+        let description = document.getElementById('description-blog');
+
+
+        async function getOldData(postId, token) {
+            try {
+                const response = await fetch(`http://localhost:5105/api/Post/${postId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Đã có lỗi xảy ra khi lấy dữ liệu từ API.');
+                }
+
+                const data = await response.json();
+
+                console.log(data)
+
+                title.value = data.title;
+
+                const selectedTagIds = data.postTags.map(tag => tag.tagId);
+
+                document.querySelectorAll('.checkbox-wrapper-13 input[type="checkbox"]').forEach(checkbox => {
+                    if (selectedTagIds.includes(parseInt(checkbox.value))) {
+                        checkbox.checked = true;
+                    }
+                });
+
+                const date = new Date(data.publishedAt);
+                timePostPicker.value = date.toISOString().slice(0, 16);
+
+                description.value = data.desc;
+
+                document.getElementById('default').value = data.content
+
+            } catch (error) {
+                console.error('Đã có lỗi xảy ra:', error);
+                return null;
+            }
+        }
+
+        getOldData(postId, token)
+
+
+        async function submitForm(e) {
+            e.preventDefault()
+
+            const payload = {
+                title: title.value,
+                desc: description.value,
+                content: getConent(),
+                tagIds: getCheckedTags(),
+                publishedAt: timePost.value === "now" ? new Date().toISOString() : timePostPicker.value + ':00.000Z'
+            };
+
+            console.log(payload.publishedAt)
+
+
+            try {
+                const response = await fetch(`http://localhost:5105/api/Post/${postId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': '*/*',
+                        'Content-Type': 'application/json-patch+json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    console.log('Bài viết đã được đăng thành công!');
+
+                    window.location.href = 'http://localhost:5500/blogOfOwner.html'
+                } else {
+                    console.error('Đã có lỗi xảy ra khi đăng bài.');
+                }
+            } catch (error) {
+                console.error('Đã có lỗi xảy ra:', error);
+            }
+        }
+
+        form.addEventListener('submit', submitForm);
+
+
+    </script>
+    <script>
+        // Lắng nghe sự kiện onchange của thẻ select
+        selectElement.addEventListener("change", function () {
+            const selectedValue = this.value;
+
+            // Nếu người dùng chọn "Đăng ngay", thì gán giá trị ngày hiện tại
+            if (selectedValue === "picktime") {
+                document.getElementById('future-time').style.display = 'block'; // Ẩn input chọn thời gian trong tương lai nếu đã chọn "Đăng ngay"
+            } else {
+                document.getElementById('future-time').style.display = 'none'; // Hiển thị input chọn thời gian trong tương lai nếu chọn "Chọn thời gian đăng"
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -185,10 +185,9 @@
                     throw new Error('Đã có lỗi xảy ra khi lấy dữ liệu từ API.');
                 }
 
-                 const prevHref = window.history.back();
+                console.log(JSON.stringify(response))
 
-                window.location.href = `http://localhost:5500/blogOfOwner.html?owner=${data.author.id}`
-                window.location.reload();
+                window.location.href = `http://localhost:5500/blogOfOwner.html`
 
             } catch (error) {
                 console.error('Đã có lỗi xảy ra:', error);

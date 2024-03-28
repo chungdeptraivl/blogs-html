@@ -39,6 +39,12 @@ async function contentPost() {
   var currentPage = 1;
   var postsPerPage = 10;
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const tagName = urlParams.get("tagName");
+
+  document.getElementById("tagPost").innerText = tagName;
+
   // Hàm hiển thị các bài viết trên trang hiện tại
   function displayPosts() {
     var postContainer = document.getElementById("postContainer");
@@ -65,7 +71,9 @@ async function contentPost() {
     var profileHTML = `
 <div class="heading-post">
     <a class="profile" href="/blogOfUser.html?userId=${postData.author.id}">
-        <img src="https://ui-avatars.com/api/?name=${postData.author.username}" alt="" class="profile-img">
+        <img src="https://ui-avatars.com/api/?name=${
+          postData.author.username
+        }" alt="" class="profile-img">
         <span class="profile-name">${postData.author.username}</span>
     </a>
     <span style="margin: 0 16px;"> - </span>
@@ -78,7 +86,7 @@ async function contentPost() {
 
     var topicsHTML = `<div class="topic-list">`;
     postData.postTags.forEach(function (tag) {
-      topicsHTML += `<a href="/topicBlogs.html?tag=${tag.tagId}" class="topic">${tag.tagName}</a>`;
+      topicsHTML += `<a href="/topicBlogs.html?tag=${tag.tagId}&&tagName=${tag.tagName}" class="topic">${tag.tagName}</a>`;
     });
     topicsHTML += `</div>`;
 

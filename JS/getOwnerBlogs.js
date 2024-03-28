@@ -11,7 +11,7 @@ async function getHomeBlogs(token) {
     console.log(authorId)
 
     const response = await fetch(
-      `http://localhost:5105/api/Post/AllByUser`,
+      `http://localhost:5105/api/Post/AllByUser?SortBy=publishedAt`,
       {
         method: "GET",
         headers: {
@@ -27,7 +27,7 @@ async function getHomeBlogs(token) {
 
     const data = await response.json();
 
-    postData = [...data.data];
+    postData = [...data.data].reverse();
 
     return postData;
   } catch (error) {
@@ -85,7 +85,7 @@ async function contentPost() {
 
     var topicsHTML = `<div class="topic-list">`;
     postData.postTags.forEach(function (tag) {
-      topicsHTML += `<a href="/topicBlogs.html?tag=${tag.tagId}" class="topic">${tag.tagName}</a>`;
+      topicsHTML += `<a href="/topicBlogs.html?tag=${tag.tagId}&&tagName=${tag.tagName}" class="topic">${tag.tagName}</a>`;
     });
     topicsHTML += `</div>`;
 

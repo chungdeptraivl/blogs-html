@@ -85,7 +85,7 @@ async function contentPost() {
 
     var topicsHTML = `<div class="topic-list">`;
     postData.postTags.forEach(function (tag) {
-      topicsHTML += `<a href="/topicBlogs.html?tag=${tag.tagId}" class="topic">${tag.tagName}</a>`;
+      topicsHTML += `<a href="/topicBlogs.html?tag=${tag.tagId}&&tagName=${tag.tagName}" class="topic">${tag.tagName}</a>`;
     });
     topicsHTML += `</div>`;
 
