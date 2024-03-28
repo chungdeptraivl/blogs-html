@@ -94,7 +94,8 @@
                         <option class="option-time" selected value="now">Đăng ngay</option>
                         <option class="option-time" value="picktime">Chọn thời gian đăng</option>
                     </select>
-                    <input type="datetime-local" id="future-time" class="input-blog" style="display: none; width: 100%; margin-top: 1rem">
+                    <input type="datetime-local" id="future-time" class="input-blog"
+                        style="display: none; width: 100%; margin-top: 1rem">
                 </div>
             </section>
             <!-- Mô tả -->
@@ -144,28 +145,52 @@
         function getConent() {
             const formElem = document.getElementById('myForm');
             const formData = new FormData(formElem);
-            return formData
-                .get('content');
+            return formData.get('content');
+        }
+
+        function validateForm() {
+            const title = document.getElementById('titlePost').value;
+            const description = document.getElementById('description-blog').value;
+            const content = getConent();
+            const tags = getCheckedTags();
+
+            if (title.length < 1 || tags.length < 1 || description.length < 1 || content.length < 1) {
+                alert('Vui lòng điền đầy đủ thông tin vào các trường!');
+                return false;
+            }
+
+            if (description.length > 200) {
+                alert('Mô tả không được quá 200 ký tự!');
+                return false;
+            }
+
+            return true;
         }
 
         async function submitForm(e) {
             e.preventDefault();
 
+            if (!validateForm()) {
+                return;
+            }
+
             const title = document.getElementById('titlePost').value;
-            const timePost = selectElement.value;
             const description = document.getElementById('description-blog').value;
             const content = getConent();
             const tags = getCheckedTags();
+
+            const timePost = selectElement.value;
+            const timeNow = new Date();
+            timeNow.setHours(timeNow.getHours() + 7);
+            const timeNowFormat = timeNow.toISOString();
 
             const payload = {
                 title: title,
                 desc: description,
                 content: content,
                 tagIds: tags,
-                publishedAt: timePost === "now" ? new Date().toISOString() : futureTimeInput.value
+                publishedAt: timePost === "now" ? timeNowFormat : futureTimeInput.value
             };
-
-
 
             try {
                 const response = await fetch('http://localhost:5105/api/Post', {
@@ -191,19 +216,12 @@
 
         form.addEventListener('submit', submitForm);
 
-
-    </script>
-    <script>
-        // Lắng nghe sự kiện onchange của thẻ select
         selectElement.addEventListener("change", function () {
             const selectedValue = this.value;
-
-            // Nếu người dùng chọn "Đăng ngay", thì gán giá trị ngày hiện tại
             if (selectedValue === "now") {
-                document.getElementById('select-time').value = 'now';
-                document.getElementById('future-time').style.display = 'none'; // Ẩn input chọn thời gian trong tương lai nếu đã chọn "Đăng ngay"
+                document.getElementById('future-time').style.display = 'none';
             } else {
-                document.getElementById('future-time').style.display = 'block'; // Hiển thị input chọn thời gian trong tương lai nếu chọn "Chọn thời gian đăng"
+                document.getElementById('future-time').style.display = 'block';
             }
         });
     </script>

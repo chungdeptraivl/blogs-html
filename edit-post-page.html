@@ -152,10 +152,35 @@
                 .get('content');
         }
 
+
+        function validateForm() {
+            const title = document.getElementById('titlePost').value;
+            const description = document.getElementById('description-blog').value;
+            const content = getConent();
+            const tags = getCheckedTags();
+
+            if (title.length < 1 || tags.length < 1 || description.length < 1 || content.length < 1) {
+                alert('Vui lòng điền đầy đủ thông tin vào các trường!');
+                return false;
+            }
+
+            if (description.length > 200) {
+                alert('Mô tả không được quá 200 ký tự!');
+                return false;
+            }
+
+            return true;
+        }
+
         let title = document.getElementById('titlePost');
         let timePost = selectElement;
         let timePostPicker = document.getElementById('future-time');
         let description = document.getElementById('description-blog');
+
+        const timeNow = new Date()
+        timeNow.setHours(timeNow.getHours() + 7)
+        const timeNowFormat = timeNow.toISOString()
+
 
 
         async function getOldData(postId, token) {
@@ -210,11 +235,14 @@
                 desc: description.value,
                 content: getConent(),
                 tagIds: getCheckedTags(),
-                publishedAt: timePost.value === "now" ? new Date().toISOString() : timePostPicker.value + ':00.000Z'
+                publishedAt: timePost.value === "now" ? timeNowFormat : timePostPicker.value
             };
 
             console.log(payload.publishedAt)
 
+            if (!validateForm()) {
+                return;
+            }
 
             try {
                 const response = await fetch(`http://localhost:5105/api/Post/${postId}`, {
