@@ -38,7 +38,7 @@
                     <hr style="margin: 10px 0; background-color: var(--text-color)">
                     <div class="list-manage">
                         <ul class="list">
-                            <a class="item">Đăng bài</a>
+                            <a href="./writeBlog.html" class="item">Đăng bài</a>
                             <a id="ownerListPost" class="item">Danh sách Blogs</a>
                             <button class="item" onclick="logout()"
                                 style="border: none; border-radius: 8px; background: var(--second-color); margin-top: 1rem">Đăng
@@ -91,11 +91,11 @@
                 <div class="time">
                     <h3>Lựa chọn thời gian đăng</h3>
                     <select name="time" id="select-time" class="input-blog sl_time-blog">
-                        <option class="option-time" value="now">Đăng ngay</option>
-                        <option class="option-time" selected value="picktime">Chọn thời gian đăng</option>
+                        <option class="option-time" selected value="now">Đăng ngay</option>
+                        <option class="option-time" value="picktime">Chọn thời gian đăng</option>
                     </select>
                     <input type="datetime-local" id="future-time" class="input-blog"
-                        style="width: 100%; margin-top: 1rem">
+                        style="width: 100%; margin-top: 1rem; display: none">
                 </div>
             </section>
             <!-- Mô tả -->
@@ -173,15 +173,15 @@
         }
 
         let title = document.getElementById('titlePost');
-        let timePost = selectElement;
         let timePostPicker = document.getElementById('future-time');
         let description = document.getElementById('description-blog');
 
-        const timeNow = new Date()
-        timeNow.setHours(timeNow.getHours() + 7)
-        const timeNowFormat = timeNow.toISOString()
 
+        const timeNow = new Date();
+        timeNow.setHours(timeNow.getHours() + 7);
+        const timeNowFormat = timeNow.toISOString();
 
+        console.log('time', timeNow, timeNowFormat);
 
         async function getOldData(postId, token) {
             try {
@@ -211,9 +211,6 @@
                     }
                 });
 
-                const date = new Date(data.publishedAt);
-                timePostPicker.value = date.toISOString().slice(0, 16);
-
                 description.value = data.desc;
 
                 document.getElementById('default').value = data.content
@@ -230,12 +227,14 @@
         async function submitForm(e) {
             e.preventDefault()
 
+            const timePost = selectElement.value === "now" ? timeNowFormat : timePostPicker.value;
+
             const payload = {
                 title: title.value,
                 desc: description.value,
                 content: getConent(),
                 tagIds: getCheckedTags(),
-                publishedAt: timePost.value === "now" ? timeNowFormat : timePostPicker.value
+                publishedAt: timePost
             };
 
             console.log(payload.publishedAt)
@@ -269,18 +268,13 @@
 
         form.addEventListener('submit', submitForm);
 
-
-    </script>
-    <script>
         // Lắng nghe sự kiện onchange của thẻ select
         selectElement.addEventListener("change", function () {
             const selectedValue = this.value;
-
-            // Nếu người dùng chọn "Đăng ngay", thì gán giá trị ngày hiện tại
-            if (selectedValue === "picktime") {
-                document.getElementById('future-time').style.display = 'block'; // Ẩn input chọn thời gian trong tương lai nếu đã chọn "Đăng ngay"
+            if (selectedValue === "now") {
+                document.getElementById('future-time').style.display = 'none';
             } else {
-                document.getElementById('future-time').style.display = 'none'; // Hiển thị input chọn thời gian trong tương lai nếu chọn "Chọn thời gian đăng"
+                document.getElementById('future-time').style.display = 'block';
             }
         });
     </script>

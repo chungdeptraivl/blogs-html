@@ -1,20 +1,6 @@
 // Dữ liệu của các bài viết
-var postData = [];
+var relatedData = [];
 
-// Hàm hiển thị các bài viết trên trang hiện tại
-function displayPosts() {
-  var postContainer = document.getElementById("postContainer");
-  postContainer.innerHTML = ""; // Xóa bài viết hiện tại
-
-  var startIndex = (currentPage - 1) * postsPerPage;
-  var endIndex = startIndex + postsPerPage;
-  var displayedPosts = postData.slice(startIndex, endIndex);
-
-  displayedPosts.forEach(function (postData) {
-    var postBox = createPost(postData);
-    postContainer.appendChild(postBox);
-  });
-}
 
 // Hàm tạo một bài viết
 function createPost(postData) {

@@ -6,78 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="./assets/styles/checkbox.css">
-
     <style>
-        .box select {
-            background-color: #0563af;
-            color: white;
-            padding: 12px;
-            width: 250px;
-            border: none;
-            font-size: 20px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-            -webkit-appearance: button;
-            appearance: button;
-            outline: none;
+        .menu-comment-btn {
+            padding: 0.5rem 0.2rem;
+            width: 7rem;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            border-radius: 4px;
         }
 
-        .box::before {
-            content: "\f13a";
-            font-family: FontAwesome;
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 20%;
-            height: 100%;
-            text-align: center;
-            font-size: 28px;
-            line-height: 45px;
-            color: rgba(255, 255, 255, 0.5);
-            background-color: rgba(255, 255, 255, 0.1);
-            pointer-events: none;
+        .item-comment-btn {
+            padding: 0.4rem;
+            border-radius: 4px;
         }
 
-        .box:hover::before {
-            color: rgba(255, 255, 255, 0.6);
-            background-color: rgba(255, 255, 255, 0.2);
+        .item-comment-btn:first-child {
+            margin-bottom: 4px;
         }
 
-        .box select option {
-            padding: 30px;
+        .item-comment-btn:hover {
+            background-color: rgb(204, 203, 201);
+            cursor: pointer;
         }
     </style>
 </head>
 
-<body>
-    <div class="container">
-        <div class="checkbox-wrapper-13">
-            <input id="c1-13" type="checkbox">
-            <label for="c1-13">Checkbox 1</label>
+<>
+    <div class="menu-comment-btn">
+        <div class="list-comment-btn">
+            <div class="item-comment-btn">Sửa phản hồi</div>
+            <div class="item-comment-btn">Xoá phản hồi</div>
         </div>
-        <div class="checkbox-wrapper-13">
-            <input id="c2-13" type="checkbox">
-            <label for="c2-13">Checkbox 2</label>
-        </div>
-        <div class="checkbox-wrapper-13">
-            <input id="c3-13" type="checkbox">
-            <label for="c3-13">Checkbox 3</label>
-        </div>
-        <div class="checkbox-wrapper-13">
-            <input id="c4-13" type="checkbox">
-            <label for="c4-13">Checkbox 4</label>
-        </div>
+    </div>
 
-
-        <div class="box">
-            <select>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-                <option>Option 4</option>
-                <option>Option 5</option>
-            </select>
+    <div class="comment__card">
+        <div class="header-comment">
+            <a href="/blogOfUser.html?userId=${comment.createdBy.id}" class="user-comment">
+                <img class="avt-comment" src="https://ui-avatars.com/api/?name=${comment.createdBy.username}" alt="">
+                <h6 class="comment__title">${comment.createdBy.username}</h6>
+            </a>
+            <div class="btn-action-comment">
+                <button class="btn-reply">
+                    <span class="open-reply" style="font-size: 16px">Phản hồi <i class='bx bxs-chat'></i></span>
+                    <span class="close-reply" style="font-size: 16px; color: red; display: none">Đóng phản hồi</span>
+                </button>
+                <button class="btn-edit-delete" style="display: none">
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </button>
+            </div>
         </div>
+        <p>${comment.content}</p>
+        <div class="comment__card-footer">
+            <div class="show-replies">${comment.updatedAt}</div>
+        </div>
+    </div>
+    <div class="reply-action">
+        <input class="reply-input-value" />
+        <button class="reply-btn-insert">Phản hồi</button>
     </div>
 </body>
 

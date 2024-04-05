@@ -50,6 +50,8 @@ header.shadow .header_menu .item:not(.active-filter) {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0 !important;
+    padding-left: 0 !important;
 }
 
 .header_menu .item {
@@ -166,6 +168,7 @@ header.shadow .header_menu .item:not(.active-filter) {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    padding-left: 0 !important;
 }
 
 .list>.item {
