@@ -4,27 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNC Blogs</title>
+    <title>TNC Search</title>
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="./assets/styles/style.css">
     <link rel="stylesheet" href="assets/styles/header.css">
     <link rel="stylesheet" href="./assets/styles/home.css">
+    <link rel="stylesheet" href="./assets/styles/search.css">
     <link rel="stylesheet" href="./assets/styles/post.css">
-    <link rel="stylesheet" href="./assets/styles/pagination.css">
     <link rel="stylesheet" href="./assets/styles/footer.css">
 </head>
 
-<body>
+<body style="height: 100vh; overflow: hidden">
     <!-- navigation -->
-    <header>
+    <header style="background-color: var(--text-color);">
         <div class="nav container">
             <a href="/" class="logo">TNC <span>Blogs</span></a>
             <ul class="header_menu">
-                <a href="/" class="item filter-item active-filter">Trang chủ</a>
+                <a href="/" class="item filter-item ">Trang chủ</a>
                 <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
                 <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
-                <a href="/searchBlogs.html" class="item filter-item">Tìm kiếm</a>
+                <a href="/searchBlogs.html" class="item filter-item active-filter">Tìm kiếm</a>
                 <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
             </ul>
             <div id="btnForm" class="btnform">
@@ -62,33 +62,23 @@
         </div>
     </header>
 
-    <!-- Home -->
-    <section id="home" class="home">
-        <div class="home-text container">
-            <h2 class="home-title">The TNC Blogs</h2>
-            <span class="home-subtitle">Write down What you think</span>
+    <!-- Search -->
+    <section class="container" id="search">
+        <h2 style="text-align: center;">Tìm kiếm bài viết</h2>
+        <div class="search-container">
+            <input type="text" class="search-text" id="searchText">
+            <div class="search-close-btn">
+                <i class='bx bx-x-circle'></i>
+            </div>
         </div>
     </section>
 
-    <!-- Post -->
-    <section id="postContainer" class="post container">
+    <section id="postContainer" class="post container" style="height: 68%; overflow: scroll; padding-bottom: 30px">
         <!-- Bài viết sẽ được thêm vào đây bằng JavaScript -->
     </section>
 
-    <!-- Phân trang -->
-    <div class="pagination container">
-        <button onclick="previousPage()">Previous</button>
-        <span id="currentPage">1</span>
-        <button onclick="nextPage()">Next</button>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p> <span style="color: var(--second-color); font-weight: bold">TNC Blogs</span> nơi gặp gỡ đất trời</p>
-    </div>
-
     <script src="./JS/index.js"></script>
-    <script src="JS/getHomeBlogs.js"></script>
+    <script src="./JS/getSearchBlogs.js"></script>
 </body>
 
 </html>

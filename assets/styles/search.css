@@ -1,0 +1,30 @@
+#search {
+    margin-top: 5%;
+    width: 100%;
+}
+
+.search-container {
+    position: relative;
+    padding: 1rem;
+    width: 100%;
+}
+
+.search-text {
+    width: 100%;
+    padding: 1rem 4rem 1rem 1rem;
+    border-radius: 1rem;
+    font-size: 20px;
+}
+
+.search-close-btn {
+    position: absolute;
+    font-size: 30px;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-44%);
+    cursor: pointer;
+}
+
+.search-close-btn:hover {
+    color: red;
+}

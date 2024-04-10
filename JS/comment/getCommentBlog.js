@@ -16,13 +16,14 @@ async function getComments(postId) {
     }
     const data = await response.json();
 
-    console.log(data);
+    // console.log(data);
 
     const parentContainer = document.getElementById("commentTNC");
 
     // Xóa tất cả các comment hiện có trong phần hiển thị
     parentContainer.innerHTML = "";
-
+    data.data.sort((a, b) => a.id - b.id);
+    console.log(data.data);
     // Duyệt qua các comment mới
     data.data.forEach((comment) => {
       // Tạo một thẻ div mới cho comment
