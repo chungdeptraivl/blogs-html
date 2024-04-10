@@ -120,7 +120,7 @@ async function getHomeBlogs(token) {
 
 async function contentPost() {
   try {
-    await getHomeBlogs(token); // Chờ cho dữ liệu được lấy trước khi tiếp tục
+    await getHomeBlogs(token); 
     console.log("postData", postData);
 
     displayPosts();
@@ -129,5 +129,4 @@ async function contentPost() {
   }
 }
 
-// Gọi hàm contentPost để hiển thị bài viết
 contentPost();
