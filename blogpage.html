@@ -7,10 +7,34 @@
 
     <title>TNC Blogs</title>
 
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Đọc bài viết tại TNC blog" />
+    <meta property="og:description" content="TNC blog" />
+    <meta property="og:url" content="/assets/images/logo.png" />
+    <meta property="og:image" content="/assets/images/logo.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+
+    <meta name="msapplication-square150x150logo" content="/assets/images/logo.png" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/icon16x16.png" />
+    <link rel="apple-touch-icon" href="/assets/images/logo.png" />
+    <link rel="shortcut icon" href="/assets/images/logo.png" />
+
+    <link rel="edituri" type="application/rsd+xml" title="RSD" href="~/rsd.xml" />
+    <link rel="alternate" type="application/rss+xml" href="~/feed/rss/" title="TNC Blogs" />
+    <link rel="alternate" type="application/atom+xml" href="~/feed/atom/" title="TNC Blogs" />
+
+    <meta name="application-name" content="TNC Blogs" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/css/splide.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/css/splide.min.css">
     <link rel="stylesheet" href="./assets/styles/style.css">
     <link rel="stylesheet" href="assets/styles/header.css">
@@ -18,6 +42,8 @@
     <link rel="stylesheet" href="./assets/styles/slide.css">
     <link rel="stylesheet" href="./assets/styles/comment.css">
     <link rel="stylesheet" href="./assets/styles/footer.css">
+
+
 </head>
 
 <body>
@@ -28,6 +54,7 @@
             <ul class="header_menu">
                 <a href="/" class="item filter-item">Trang chủ</a>
                 <a href="/newBlogs.html" class="item filter-item">Bài viết mới</a>
+                <a href="/assets/images/logo.png"></a>
                 <a href="/bookmarkBlogs.html" class="item filter-item">Bookmark</a>
                 <a href="/searchBlogs.html" class="item filter-item">Tìm kiếm</a>
                 <a href="/writeBlog.html" class="item filter-item">Đăng bài</a>
@@ -77,6 +104,14 @@
 
     <!-- Home -->
     <div id="blog-content" class="content-blog container"></div>
+
+    <div class="container" style="display: flex;">
+        <button class="share-blog"
+            style="padding: 10px 20px; border: none; border-radius: 10px; margin-top: 1rem; margin-left: auto; color: #fff; background: var(--second-color)">
+            Chia sẻ
+            <i class="fa-brands fa-facebook" style="margin-left: 1rem;"></i>
+        </button>
+    </div>
 
     <!-- Bài viết liên quan -->
     <div class="container">
@@ -175,6 +210,28 @@
 
     </script>
 
+    <script>
+        //copy link href to clipboard
+        const shareBtn = document.querySelector('.share-blog');
+
+        shareBtn.addEventListener('click', () => {
+            const href = window.location.href
+            const tempInput = document.createElement('input');
+
+            tempInput.value = href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(href)}`;
+
+            window.open(facebookShareUrl, '_blank', 'width=600,height=400');
+        });
+
+
+    </script>
+
     <!-- get data blog -->
     <script>
         // Lấy URL hiện tại
@@ -219,13 +276,14 @@
                             <div class="icon icon-view">
                                 <i class='bx bx-show'></i>
                                 <p class="count-view" style="margin: 0 0 0 4px">${data.views}</p>
-                            </div>
-                            <div class="icon icon-bookmark">
+                             </div>
+                             <div class="icon icon-bookmark">
                                 <i class='bx bx-bookmark'></i>
                                 <p class="count-bookmark" style="margin: 0 0 0 4px">${data.bookmarks}</p>
-                            </div>
+                             </div>
                         </div>
                     </div>`;
+
 
                 const formattedTime = convertTime(data.publishedAt);
                 document.querySelector('.post-txt').innerText = `Được đăng vào: ${formattedTime}`;

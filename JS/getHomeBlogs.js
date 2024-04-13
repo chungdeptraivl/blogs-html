@@ -60,10 +60,12 @@ function createPost(postData) {
     <div class="footer-post">
       ${topicsHTML}
       <div class="footer-detail">
-        <div class="icon icon-view">
-          <i class='bx bx-show'></i>
-          <p>${postData.views}</p>
-        </div>
+      <div class="icon icon-view">
+      <i class='bx bx-show'></i>
+      <p>${postData.views}</p>
+    </div>
+
+        
   `;
 
   const userString = localStorage.getItem("user");
@@ -163,16 +165,16 @@ async function handleBookmarkClick(postId) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ postId: postId}), // Thay đổi postId tùy theo bài viết bạn muốn bookmark
+      body: JSON.stringify({ postId: postId }), // Thay đổi postId tùy theo bài viết bạn muốn bookmark
     });
-  
+
     if (response.ok) {
-      console.log("Bài viết đã được lưu thành công!");
+      alert("Lưu bài viết thành công");
+      window.location.href = `blogpage.html?postId=${postId}`;
     } else {
       console.error("Đã có lỗi xảy ra khi lưu bài.");
     }
   } catch (error) {
     console.error("Đã có lỗi xảy ra:", error);
   }
-  
 }

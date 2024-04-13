@@ -44,6 +44,19 @@ function displayPosts() {
   });
 }
 
+function checkUserLoggedIn() {
+  const userString = localStorage.getItem("user");
+  if (!userString) {
+    return false;
+  }
+
+  const user = JSON.parse(userString);
+  if (!user || !user.token) {
+    return false;
+  }
+  return true;
+}
+
 // Hàm tạo một bài viết
 function createPost(postData) {
   var postBox = document.createElement("div");
@@ -75,18 +88,30 @@ function createPost(postData) {
     <div class="footer-post">
       ${topicsHTML}
       <div class="footer-detail">
-        <div class="icon icon-view">
-          <i class='bx bx-show'></i>
-          <p>${postData.views}</p>
-        </div>
-        <div class="icon icon-bookmark">
-          <i class='bx bx-bookmark' ></i>
-          <p>${postData.bookmarks}</p>
-        </div>
+      <div class="icon icon-view">
+      <i class='bx bx-show'></i>
+      <p>${postData.views}</p>
+    </div>
+
+        
+  `;
+
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  if (checkUserLoggedIn() && postData.author.id != user.id) {
+    footerHTML += `
+      <div class="icon icon-bookmark">
+        <i class='bx bx-bookmark' onclick="handleBookmarkClick('${postData.id}')"></i>
+        <p>${postData.bookmarks}</p>
+      </div>
+    `;
+  }
+
+  footerHTML += `
       </div>
     </div>
   `;
-
   // Tạo nội dung của bài viết
   var postContent =
     profileHTML + postTitleHTML + postDescriptionHTML + footerHTML;
@@ -154,6 +179,30 @@ async function contentPost() {
     console.error("Đã có lỗi xảy ra:", error);
   }
 }
+
+async function handleBookmarkClick(postId) {
+  try {
+    const response = await fetch("http://localhost:5105/api/Bookmark", {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ postId: postId }), // Thay đổi postId tùy theo bài viết bạn muốn bookmark
+    });
+
+    if (response.ok) {
+      alert("Lưu bài viết thành công");
+      window.location.href = `blogpage.html?postId=${postId}`;
+    } else {
+      console.error("Đã có lỗi xảy ra khi lưu bài.");
+    }
+  } catch (error) {
+    console.error("Đã có lỗi xảy ra:", error);
+  }
+}
+
 
 // Gọi hàm contentPost để hiển thị bài viết
 contentPost();

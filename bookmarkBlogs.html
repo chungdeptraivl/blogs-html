@@ -89,6 +89,19 @@
 
     <script src="./JS/index.js"></script>
     <script src="JS/getBookmarkBlogs.js"></script>
+
+    <script>
+        const linkWriteBlog = window.location.href
+
+        console.log(linkWriteBlog)
+
+        if (linkWriteBlog) {
+            if (!token || token.length < 0) {
+                alert('Bạn cần đăng nhập mới có thể xem các bài viết đã lưu')
+                window.location.href = '/login-form.html'
+            }
+        }
+    </script>
 </body>
 
 </html>

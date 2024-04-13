@@ -16,6 +16,19 @@ function displayPosts() {
   });
 }
 
+function checkUserLoggedIn() {
+  const userString = localStorage.getItem("user");
+  if (!userString) {
+    return false;
+  }
+
+  const user = JSON.parse(userString);
+  if (!user || !user.token) {
+    return false;
+  }
+  return true;
+}
+
 // Hàm tạo một bài viết
 function createPost(postData) {
   var postBox = document.createElement("div");
@@ -23,9 +36,7 @@ function createPost(postData) {
 
   var profileHTML = `
     <div class="heading-post">
-      <a class="profile" href="/blogOfUser.html?userId=${
-        postData.author.id
-      }">
+      <a class="profile" href="/blogOfUser.html?userId=${postData.author.id}">
         <img src="https://ui-avatars.com/api/?name=${
           postData.author.username
         }" alt="" class="profile-img">
@@ -34,8 +45,12 @@ function createPost(postData) {
       <span style="margin: 0 16px;"> - </span>
       <span class="post-txt">${convertTime(postData.createdAt)}</span>
       <div class="btn-post-action">
-        <a href="/edit-post-page.html?postId=${postData.id}" class="btn btn-edit">Sửa</a>
-        <a href="/delete-post-page.html?postId=${postData.id}" class="btn btn-delete">Xoá</a>
+        <a href="/edit-post-page.html?postId=${
+          postData.id
+        }" class="btn btn-edit">Sửa</a>
+        <a href="/delete-post-page.html?postId=${
+          postData.id
+        }" class="btn btn-delete">Xoá</a>
       </div>
     </div>
   `;
@@ -53,14 +68,27 @@ function createPost(postData) {
     <div class="footer-post">
       ${topicsHTML}
       <div class="footer-detail">
-        <div class="icon icon-view">
-          <i class='bx bx-show'></i>
-          <p>${postData.views}</p>
-        </div>
-        <div class="icon icon-bookmark">
-          <i class='bx bx-bookmark' ></i>
-          <p>${postData.bookmarks}</p>
-        </div>
+      <div class="icon icon-view">
+      <i class='bx bx-show'></i>
+      <p>${postData.views}</p>
+    </div>
+
+        
+  `;
+
+  const userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
+
+  if (checkUserLoggedIn() && postData.author.id != user.id) {
+    footerHTML += `
+      <div class="icon icon-bookmark">
+        <i class='bx bx-bookmark' onclick="handleBookmarkClick('${postData.id}')"></i>
+        <p>${postData.bookmarks}</p>
+      </div>
+    `;
+  }
+
+  footerHTML += `
       </div>
     </div>
   `;
@@ -132,6 +160,30 @@ async function contentPost() {
     console.error("Đã có lỗi xảy ra:", error);
   }
 }
+
+async function handleBookmarkClick(postId) {
+  try {
+    const response = await fetch("http://localhost:5105/api/Bookmark", {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ postId: postId }), // Thay đổi postId tùy theo bài viết bạn muốn bookmark
+    });
+
+    if (response.ok) {
+      alert("Lưu bài viết thành công");
+      window.location.href = `blogpage.html?postId=${postId}`;
+    } else {
+      console.error("Đã có lỗi xảy ra khi lưu bài.");
+    }
+  } catch (error) {
+    console.error("Đã có lỗi xảy ra:", error);
+  }
+}
+
 
 // Gọi hàm contentPost để hiển thị bài viết
 contentPost();

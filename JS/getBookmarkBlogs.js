@@ -23,9 +23,7 @@ function createPost(postData) {
 
   var profileHTML = `
     <div class="heading-post">
-      <a class="profile" href="/blogOfUser.html?userId=${
-        postData.author.id
-      }">
+      <a class="profile" href="/blogOfUser.html?userId=${postData.author.id}">
         <img src="https://ui-avatars.com/api/?name=${
           postData.author.username
         }" alt="" class="profile-img">
@@ -48,7 +46,11 @@ function createPost(postData) {
   var footerHTML = `
     <div class="footer-post">
       ${topicsHTML}
-      <div class="footer-detail">
+      
+    </div>
+  `;
+  {
+    /* <div class="footer-detail">
         <div class="icon icon-view">
           <i class='bx bx-show'></i>
           <p>${postData.views}</p>
@@ -57,10 +59,8 @@ function createPost(postData) {
           <i class='bx bx-bookmark' ></i>
           <p>${postData.bookmarks}</p>
         </div>
-      </div>
-    </div>
-  `;
-
+      </div> */
+  }
   // Tạo nội dung của bài viết
   var postContent =
     profileHTML + postTitleHTML + postDescriptionHTML + footerHTML;
@@ -108,6 +108,8 @@ async function getHomeBlogs(token) {
     }
 
     const data = await response.json();
+
+    console.log(data);
 
     postData = [...data.data].reverse();
 
