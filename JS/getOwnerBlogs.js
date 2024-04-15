@@ -79,13 +79,24 @@ function createPost(postData) {
   const userString = localStorage.getItem("user");
   const user = JSON.parse(userString);
 
-  if (checkUserLoggedIn() && postData.author.id != user.id) {
-    footerHTML += `
-      <div class="icon icon-bookmark">
-        <i class='bx bx-bookmark' onclick="handleBookmarkClick('${postData.id}')"></i>
-        <p>${postData.bookmarks}</p>
-      </div>
-    `;
+  if (checkUserLoggedIn() && postData.author.id !== user.id) {
+    if (postData.isBookmarked == false) {
+      // Render bookmark icon with yellow background if post is bookmarked
+      footerHTML += `
+        <div class="icon icon-bookmark">
+          <i class='bx bx-bookmark' onclick="handleBookmarkClick('${postData.id}')"></i>
+          <p>${postData.bookmarks}</p>
+        </div>
+      `;
+    } else {
+      // Render bookmark icon without special styling if post is not bookmarked
+      footerHTML += `
+        <div class="icon icon-bookmark"  style="background: yellow">
+          <i class='bx bx-bookmark' onclick="deleteBookmarkClick('${postData.id}')"></i>
+          <p>${postData.bookmarks}</p>
+        </div>
+      `;
+    }
   }
 
   footerHTML += `
@@ -178,6 +189,39 @@ async function handleBookmarkClick(postId) {
       window.location.href = `blogpage.html?postId=${postId}`;
     } else {
       console.error("Đã có lỗi xảy ra khi lưu bài.");
+    }
+  } catch (error) {
+    console.error("Đã có lỗi xảy ra:", error);
+  }
+}
+
+async function deleteBookmarkClick(postId) {
+  try {
+    const response = await fetch(
+      `http://localhost:5105/api/Bookmark/${postId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      alert("Xoá bài viết lưu trong bookmark thành công");
+
+      const bookmarkIcon = document.querySelector('.icon-bookmark');
+      const bookmarkCount = document.querySelector('.icon-bookmark p');
+
+      if (bookmarkIcon && bookmarkCount) {
+        bookmarkIcon.style.background = ""; 
+        bookmarkIcon.onclick = () => handleBookmarkClick(postId); 
+        bookmarkCount.innerText = parseInt(bookmarkCount.innerText) - 1; 
+      }
+    } else {
+      console.error("Đã có lỗi xảy ra khi xóa bài viết đã lưu.");
     }
   } catch (error) {
     console.error("Đã có lỗi xảy ra:", error);

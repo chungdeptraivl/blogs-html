@@ -23,22 +23,24 @@ function createPost(postData) {
 
   var profileHTML = `
     <div class="heading-post">
-      <a class="profile" href="/blogOfUser.html?userId=${postData.author.id}">
+      <a class="profile" href="/blogOfUser.html?userId=${
+        postData.post.author.id
+      }">
         <img src="https://ui-avatars.com/api/?name=${
-          postData.author.username
+          postData.post.author.username
         }" alt="" class="profile-img">
-        <span class="profile-name">${postData.author.username}</span>
+        <span class="profile-name">${postData.post.author.username}</span>
       </a>
       <span style="margin: 0 16px;"> - </span>
-      <span class="post-txt">${convertTime(postData.publishedAt)}</span>
+      <span class="post-txt">${convertTime(postData.post.publishedAt)}</span>
     </div>
   `;
 
-  var postTitleHTML = `<a href="blogpage.html?postId=${postData.id}" class="post-title">${postData.title}</a>`;
-  var postDescriptionHTML = `<p class="post-description">${postData.desc}</p>`;
+  var postTitleHTML = `<a href="blogpage.html?postId=${postData.post.id}" class="post-title">${postData.post.title}</a>`;
+  var postDescriptionHTML = `<p class="post-description">${postData.post.desc}</p>`;
 
   var topicsHTML = `<div class="topic-list">`;
-  postData.postTags.forEach(function (tag) {
+  postData.post.postTags.forEach(function (tag) {
     topicsHTML += `<a href="/topicBlogs.html?tag=${tag.tagId}&&tagName=${tag.tagName}" class="topic">${tag.tagName}</a>`;
   });
   topicsHTML += `</div>`;
@@ -46,21 +48,19 @@ function createPost(postData) {
   var footerHTML = `
     <div class="footer-post">
       ${topicsHTML}
-      
+      <div class="footer-detail">
+      <div class="icon icon-view">
+      <i class='bx bx-show'></i>
+      <p>${postData.post.views}</p>
+    </div>        
+        <div class="icon icon-bookmark"  style="background: yellow">
+          <i class='bx bx-bookmark' onclick="deleteBookmarkClick('${postData.post.id}')"></i>
+          <p>${postData.post.bookmarks}</p>
+        </div>
+      </div>
     </div>
   `;
-  {
-    /* <div class="footer-detail">
-        <div class="icon icon-view">
-          <i class='bx bx-show'></i>
-          <p>${postData.views}</p>
-        </div>
-        <div class="icon icon-bookmark">
-          <i class='bx bx-bookmark' ></i>
-          <p>${postData.bookmarks}</p>
-        </div>
-      </div> */
-  }
+
   // Tạo nội dung của bài viết
   var postContent =
     profileHTML + postTitleHTML + postDescriptionHTML + footerHTML;
@@ -93,7 +93,7 @@ function previousPage() {
 async function getHomeBlogs(token) {
   try {
     const response = await fetch(
-      `http://localhost:5105/api/Bookmark/AllByUser?PageNumber=1000`,
+      `http://localhost:5105/api/Bookmark/AllByUser?PageSize=1000`,
       {
         method: "GET",
         headers: {
@@ -102,6 +102,8 @@ async function getHomeBlogs(token) {
         },
       }
     );
+
+    console.log(response);
 
     if (!response.ok) {
       throw new Error("Đã có lỗi xảy ra khi lấy dữ liệu từ API.");
@@ -122,7 +124,7 @@ async function getHomeBlogs(token) {
 
 async function contentPost() {
   try {
-    await getHomeBlogs(token); // Chờ cho dữ liệu được lấy trước khi tiếp tục
+    await getHomeBlogs(token);
     console.log("postData", postData);
 
     displayPosts();
@@ -131,5 +133,29 @@ async function contentPost() {
   }
 }
 
-// Gọi hàm contentPost để hiển thị bài viết
+async function deleteBookmarkClick(postId) {
+  try {
+    const response = await fetch(
+      `http://localhost:5105/api/Bookmark/${postId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      alert("Xoá bài viết lưu trong bookmark thành công");
+
+    } else {
+      console.error("Đã có lỗi xảy ra khi xóa bài viết đã lưu.");
+    }
+  } catch (error) {
+    console.error("Đã có lỗi xảy ra:", error);
+  }
+}
+
 contentPost();
