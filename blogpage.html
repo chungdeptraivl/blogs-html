@@ -11,7 +11,7 @@
     <meta property="og:title" content="Đọc bài viết tại TNC blog" />
     <meta property="og:description" content="TNC blog" />
     <meta property="og:url" content="/assets/images/logo.png" />
-    <meta property="og:image" content="/assets/images/logo.png" />
+    <meta property="og:image" content="https://u-static.fotor.com/images/text-to-image/result/PRO-9cf2aa5dc9fe4c70985e07426ee34234.jpg" />
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
 
@@ -103,6 +103,11 @@
 
     <!-- Home -->
     <div id="blog-content" class="content-blog container"></div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0"
+        nonce="zklaU079">
+        </script>
 
     <div class="container" style="display: flex;">
         <button class="share-blog"
@@ -207,29 +212,28 @@
             })
         }
 
+
+
     </script>
 
     <script>
-        //copy link href to clipboard
         const shareBtn = document.querySelector('.share-blog');
+        const getBlogTitle = localStorage.getItem('blog-title');
+        const getBlogAuthor = localStorage.getItem('blog-author');
 
         shareBtn.addEventListener('click', () => {
-            const href = window.location.href
-            const tempInput = document.createElement('input');
+            const href = window.location.href;
 
-            tempInput.value = href;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
+            // Sử dụng các giá trị từ localStorage cho tiêu đề và tên tác giả
+            const shareTitle = encodeURIComponent(getBlogTitle);
+            const shareAuthor = encodeURIComponent(getBlogAuthor);
 
-            const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(href)}`;
-
+            // Mở hộp thoại chia sẻ Facebook
+            const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(href)}&title=${shareTitle}&description=${shareAuthor}}`;
             window.open(facebookShareUrl, '_blank', 'width=600,height=400');
         });
-
-
     </script>
+
 
     <!-- get data blog -->
     <script>
@@ -239,7 +243,6 @@
 
         async function getPost(postId, token) {
             try {
-                // Lấy dữ liệu bài viết từ API
                 const response = await fetch(`http://localhost:5105/api/Post/${postId}`, {
                     method: 'GET',
                     headers: {
@@ -301,6 +304,14 @@
                         ${data.content}
                     </section> `;
 
+                const blogTitleElement = document.getElementById('blog-title');
+                const blogTitle = blogTitleElement.textContent;
+
+                const blogAuthorElement = document.getElementsByClassName('profile-name')[0]
+                const blogAuthor = blogAuthorElement.textContent
+
+                localStorage.setItem('blog-title', blogTitle);
+                localStorage.setItem('blog-author', blogAuthor);
                 // Kích hoạt Splide slider
                 var splide = new Splide('.splide', {
                     perPage: 3,
